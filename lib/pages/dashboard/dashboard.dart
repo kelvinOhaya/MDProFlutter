@@ -55,11 +55,9 @@ class Dashboard extends StatelessWidget {
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
                   controller: notesViewModel.titleController,
                   onChanged: (value) => notesViewModel.debouncer.run(() {
-                    notesViewModel.saveCurrentNote(
-                      notesViewModel
-                          .notesList[notesViewModel.currentNoteIndex]
-                          .id,
-                    );
+                    final noteId = notesViewModel.currentNoteId;
+                    if (noteId == null) return;
+                    notesViewModel.saveCurrentNote(noteId);
                   }),
                 ),
                 Expanded(child: Editor()),

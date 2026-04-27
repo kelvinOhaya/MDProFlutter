@@ -14,6 +14,7 @@ class NotesViewModel extends ChangeNotifier {
   List<Note> notesList = [];
   List<Note> filteredNotesList = [];
   int _currentNoteIndex = 0;
+  String? _currentNoteId;
   final TextEditingController titleController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
   final TextEditingController searchbarController = TextEditingController();
@@ -30,6 +31,7 @@ class NotesViewModel extends ChangeNotifier {
         notesList = [];
         filteredNotesList = [];
         _currentNoteIndex = 0;
+        _currentNoteId = null;
         titleController.clear();
         contentController.clear();
         notifyListeners();
@@ -62,20 +64,39 @@ class NotesViewModel extends ChangeNotifier {
             return;
           }
 
-          if (_currentNoteIndex > notesList.length - 1) {
-            _currentNoteIndex = 0;
+          if (_currentNoteId == null ||
+              !notesList.any((note) => note.id == _currentNoteId)) {
+            _currentNoteId = notesList.first.id;
           }
 
-          titleController.text = notesList[_currentNoteIndex].title;
-          contentController.text = notesList[_currentNoteIndex].content;
+          final resolvedIndex = notesList.indexWhere(
+            (note) => note.id == _currentNoteId,
+          );
+
+          if (resolvedIndex == -1) {
+            _currentNoteIndex = 0;
+            _currentNoteId = notesList.first.id;
+          } else {
+            _currentNoteIndex = resolvedIndex;
+          }
+
+          final activeNote = notesList[_currentNoteIndex];
+          if (titleController.text != activeNote.title) {
+            titleController.text = activeNote.title;
+          }
+          if (contentController.text != activeNote.content) {
+            contentController.text = activeNote.content;
+          }
           notifyListeners();
         });
   }
 
   int get currentNoteIndex => _currentNoteIndex;
+  String? get currentNoteId => _currentNoteId;
   set currentNoteIndex(int newIndex) {
     if (newIndex < 0 || newIndex > notesList.length - 1) return;
     _currentNoteIndex = newIndex;
+    _currentNoteId = notesList[newIndex].id;
     titleController.text = notesList[newIndex].title;
     contentController.text = notesList[newIndex].content;
     notifyListeners();
@@ -98,6 +119,7 @@ class NotesViewModel extends ChangeNotifier {
       notesList = seededNotes;
       if (notesList.isNotEmpty) {
         _currentNoteIndex = 0;
+        _currentNoteId = notesList.first.id;
         titleController.text = notesList.first.title;
         contentController.text = notesList.first.content;
       }
@@ -131,7 +153,10 @@ class NotesViewModel extends ChangeNotifier {
   }
 
   Future<void> saveCurrentNote(String noteId) async {
-    Note currentNote = notesList[_currentNoteIndex];
+    final int noteIndex = notesList.indexWhere((note) => note.id == noteId);
+    if (noteIndex == -1) return;
+
+    Note currentNote = notesList[noteIndex];
     currentNote.title = titleController.text;
     currentNote.content = contentController.text;
     await _userNotesRef.doc(noteId).update({
@@ -175,6 +200,7 @@ class NotesViewModel extends ChangeNotifier {
     notesList.insert(0, newNote);
     filteredNotesList = notesList;
     _currentNoteIndex = 0;
+    _currentNoteId = newNote.id;
     titleController.text = newNote.title;
     contentController.text = newNote.content;
     notifyListeners();
