@@ -38,7 +38,7 @@ Future<void> main() async {
 class MainApp extends StatelessWidget {
   final transitionDuration = const Duration(milliseconds: 300);
   final reverseTransitionDuration = const Duration(milliseconds: 300);
-  MainApp({super.key});
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
