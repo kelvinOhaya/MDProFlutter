@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:md_pro/main.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,15 +13,28 @@ class Footer extends StatelessWidget {
     "https://github.com/kelvinOhaya/MDProFlutter",
   );
   Future<bool> _launchUrl(Uri url) async {
-    if (!await canLaunchUrl(url)) {
+    try {
+      // iOS Safari/PWA can be picky about target windows.
+      if (kIsWeb) {
+        final openedInNewTab = await launchUrl(
+          url,
+          mode: LaunchMode.platformDefault,
+          webOnlyWindowName: '_blank',
+        );
+        if (openedInNewTab) return true;
+
+        // Fallback for environments that block opening a new tab/window.
+        return launchUrl(
+          url,
+          mode: LaunchMode.platformDefault,
+          webOnlyWindowName: '_self',
+        );
+      }
+
+      return launchUrl(url, mode: LaunchMode.externalApplication);
+    } catch (_) {
       return false;
     }
-
-    return launchUrl(
-      url,
-      mode: LaunchMode.platformDefault,
-      webOnlyWindowName: '_blank',
-    );
   }
 
   @override
