@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:ui' as ui;
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -45,125 +42,130 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: MaterialApp.router(
-        localizationsDelegates: const [FlutterQuillLocalizations.delegate],
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.primary,
-            brightness: Brightness.dark,
-          ).copyWith(primary: AppColors.primary),
-          iconTheme: IconThemeData(color: AppColors.iconContrast),
-          textTheme: GoogleFonts.robotoTextTheme(
-            Theme.of(context).textTheme.apply(
-              bodyColor: Colors.white,
-              displayColor: Colors.white,
-            ),
-          ),
-          tooltipTheme: TooltipThemeData(
-            decoration: BoxDecoration(color: Colors.black),
-            textStyle: TextStyle(color: AppColors.iconContrast),
-            preferBelow: false,
-            verticalOffset: 16,
-            margin: EdgeInsets.only(right: 32),
-          ),
-          brightness: Brightness.dark,
-        ),
-        routerConfig: GoRouter(
-          initialLocation: '/',
-          refreshListenable: AuthNotifier(),
-          redirect: (context, state) {
-            final bool loggedIn = FirebaseAuth.instance.currentUser != null;
-            final bool isOnDashboard = state.matchedLocation == '/dashboard';
-            final bool isOnAuth = state.matchedLocation.startsWith('/auth/');
-
-            if (!loggedIn) {
-              if (isOnDashboard) return '/home';
-              return null;
-            }
-
-            if (isOnAuth) return '/dashboard';
-            return null;
-          },
-          routes: [
-            GoRoute(path: '/', builder: (context, state) => Wrapper()),
-            GoRoute(path: '/home', builder: (context, state) => HomePage()),
-            ShellRoute(
-              builder: (context, state, child) => AuthShell(child: child),
-              routes: [
-                GoRoute(
-                  path: '/auth/login',
-                  pageBuilder: (context, state) {
-                    return CustomTransitionPage(
-                      key: state.pageKey,
-                      child: Login(),
-                      transitionDuration: transitionDuration,
-                      reverseTransitionDuration: reverseTransitionDuration,
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                            Animatable<Offset> inTween = Tween<Offset>(
-                              begin: Offset(-1.0, 0.0),
-                              end: Offset.zero,
-                            ).chain(CurveTween(curve: Curves.easeOutCubic));
-                            Animatable<Offset> outTween = Tween<Offset>(
-                              begin: Offset.zero,
-                              end: Offset(-1.0, 0.0),
-                            ).chain(CurveTween(curve: Curves.easeOutCubic));
-
-                            return SlideTransition(
-                              position: secondaryAnimation.drive(outTween),
-                              child: SlideTransition(
-                                position: animation.drive(inTween),
-                                child: child,
-                              ),
-                            );
-                          },
-                    );
-                  },
-                ),
-                GoRoute(
-                  path: '/auth/signup',
-                  pageBuilder: (context, state) {
-                    return CustomTransitionPage(
-                      key: state.pageKey,
-                      child: SignUp(),
-                      transitionDuration: transitionDuration,
-                      reverseTransitionDuration: reverseTransitionDuration,
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                            Animatable<Offset> inTween = Tween<Offset>(
-                              begin: Offset(1.0, 0.0),
-                              end: Offset.zero,
-                            ).chain(CurveTween(curve: Curves.easeOutCubic));
-                            Animatable<Offset> outTween = Tween<Offset>(
-                              begin: Offset.zero,
-                              end: Offset(1.0, 0.0),
-                            ).chain(CurveTween(curve: Curves.easeOutCubic));
-
-                            return SlideTransition(
-                              position: secondaryAnimation.drive(outTween),
-                              child: SlideTransition(
-                                position: animation.drive(inTween),
-                                child: child,
-                              ),
-                            );
-                          },
-                    );
-                  },
-                ),
-              ],
-            ),
-            GoRoute(
-              path: '/dashboard',
-              builder: (context, state) => MultiProvider(
-                providers: [
-                  ChangeNotifierProvider(create: (context) => NotesViewModel()),
-                ],
-                child: Dashboard(),
+    return ColoredBox(
+      color: Colors.black,
+      child: SafeArea(
+        child: MaterialApp.router(
+          localizationsDelegates: const [FlutterQuillLocalizations.delegate],
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: AppColors.primary,
+              brightness: Brightness.dark,
+            ).copyWith(primary: AppColors.primary),
+            iconTheme: IconThemeData(color: AppColors.iconContrast),
+            textTheme: GoogleFonts.robotoTextTheme(
+              Theme.of(context).textTheme.apply(
+                bodyColor: Colors.white,
+                displayColor: Colors.white,
               ),
             ),
-          ],
+            tooltipTheme: TooltipThemeData(
+              decoration: BoxDecoration(color: Colors.black),
+              textStyle: TextStyle(color: AppColors.iconContrast),
+              preferBelow: false,
+              verticalOffset: 16,
+              margin: EdgeInsets.only(right: 32),
+            ),
+            brightness: Brightness.dark,
+          ),
+          routerConfig: GoRouter(
+            initialLocation: '/',
+            refreshListenable: AuthNotifier(),
+            redirect: (context, state) {
+              final bool loggedIn = FirebaseAuth.instance.currentUser != null;
+              final bool isOnDashboard = state.matchedLocation == '/dashboard';
+              final bool isOnAuth = state.matchedLocation.startsWith('/auth/');
+
+              if (!loggedIn) {
+                if (isOnDashboard) return '/home';
+                return null;
+              }
+
+              if (isOnAuth) return '/dashboard';
+              return null;
+            },
+            routes: [
+              GoRoute(path: '/', builder: (context, state) => Wrapper()),
+              GoRoute(path: '/home', builder: (context, state) => HomePage()),
+              ShellRoute(
+                builder: (context, state, child) => AuthShell(child: child),
+                routes: [
+                  GoRoute(
+                    path: '/auth/login',
+                    pageBuilder: (context, state) {
+                      return CustomTransitionPage(
+                        key: state.pageKey,
+                        child: Login(),
+                        transitionDuration: transitionDuration,
+                        reverseTransitionDuration: reverseTransitionDuration,
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                              Animatable<Offset> inTween = Tween<Offset>(
+                                begin: Offset(-1.0, 0.0),
+                                end: Offset.zero,
+                              ).chain(CurveTween(curve: Curves.easeOutCubic));
+                              Animatable<Offset> outTween = Tween<Offset>(
+                                begin: Offset.zero,
+                                end: Offset(-1.0, 0.0),
+                              ).chain(CurveTween(curve: Curves.easeOutCubic));
+
+                              return SlideTransition(
+                                position: secondaryAnimation.drive(outTween),
+                                child: SlideTransition(
+                                  position: animation.drive(inTween),
+                                  child: child,
+                                ),
+                              );
+                            },
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: '/auth/signup',
+                    pageBuilder: (context, state) {
+                      return CustomTransitionPage(
+                        key: state.pageKey,
+                        child: SignUp(),
+                        transitionDuration: transitionDuration,
+                        reverseTransitionDuration: reverseTransitionDuration,
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                              Animatable<Offset> inTween = Tween<Offset>(
+                                begin: Offset(1.0, 0.0),
+                                end: Offset.zero,
+                              ).chain(CurveTween(curve: Curves.easeOutCubic));
+                              Animatable<Offset> outTween = Tween<Offset>(
+                                begin: Offset.zero,
+                                end: Offset(1.0, 0.0),
+                              ).chain(CurveTween(curve: Curves.easeOutCubic));
+
+                              return SlideTransition(
+                                position: secondaryAnimation.drive(outTween),
+                                child: SlideTransition(
+                                  position: animation.drive(inTween),
+                                  child: child,
+                                ),
+                              );
+                            },
+                      );
+                    },
+                  ),
+                ],
+              ),
+              GoRoute(
+                path: '/dashboard',
+                builder: (context, state) => MultiProvider(
+                  providers: [
+                    ChangeNotifierProvider(
+                      create: (context) => NotesViewModel(),
+                    ),
+                  ],
+                  child: Dashboard(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
