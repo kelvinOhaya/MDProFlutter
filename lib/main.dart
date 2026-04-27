@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,17 +25,6 @@ Future<void> main() async {
   debugPaintSizeEnabled = false;
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.black,
-      systemNavigationBarIconBrightness: Brightness.light,
-    ),
-  );
-
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.presentError(details);
     debugPrint('Flutter framework error: ${details.exceptionAsString()}');
@@ -58,14 +46,7 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: const [FlutterQuillLocalizations.delegate],
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
-        return ColoredBox(
-          color: Colors.black,
-          child: SafeArea(
-            top: true,
-            bottom: true,
-            child: child ?? const SizedBox.shrink(),
-          ),
-        );
+        return child ?? const SizedBox.shrink();
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -75,14 +56,7 @@ class MainApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         canvasColor: Colors.black,
         iconTheme: IconThemeData(color: AppColors.iconContrast),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.black,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.black,
-            statusBarIconBrightness: Brightness.light,
-            statusBarBrightness: Brightness.dark,
-          ),
-        ),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
         textTheme: GoogleFonts.robotoTextTheme(
           Theme.of(context).textTheme.apply(
             bodyColor: Colors.white,
@@ -115,10 +89,25 @@ class MainApp extends StatelessWidget {
           return null;
         },
         routes: [
-          GoRoute(path: '/', builder: (context, state) => Wrapper()),
-          GoRoute(path: '/home', builder: (context, state) => HomePage()),
+          GoRoute(
+            path: '/',
+            builder: (context, state) => const _RouteChrome(
+              backgroundColor: Colors.black,
+              child: Wrapper(),
+            ),
+          ),
+          GoRoute(
+            path: '/home',
+            builder: (context, state) => _RouteChrome(
+              backgroundColor: Color(0xFF121212),
+              child: HomePage(),
+            ),
+          ),
           ShellRoute(
-            builder: (context, state, child) => AuthShell(child: child),
+            builder: (context, state, child) => _RouteChrome(
+              backgroundColor: const Color(0xFF0F0F0F),
+              child: AuthShell(child: child),
+            ),
             routes: [
               GoRoute(
                 path: '/auth/login',
@@ -184,15 +173,35 @@ class MainApp extends StatelessWidget {
           ),
           GoRoute(
             path: '/dashboard',
-            builder: (context, state) => MultiProvider(
-              providers: [
-                ChangeNotifierProvider(create: (context) => NotesViewModel()),
-              ],
-              child: Dashboard(),
+            builder: (context, state) => _RouteChrome(
+              backgroundColor: Colors.black,
+              child: MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(create: (context) => NotesViewModel()),
+                ],
+                child: Dashboard(),
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _RouteChrome extends StatelessWidget {
+  final Widget child;
+  final Color backgroundColor;
+
+  const _RouteChrome({required this.child, required this.backgroundColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(child: ColoredBox(color: backgroundColor)),
+        SafeArea(top: true, bottom: true, child: child),
+      ],
     );
   }
 }

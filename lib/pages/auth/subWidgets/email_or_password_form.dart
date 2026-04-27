@@ -168,7 +168,23 @@ class _EmailOrPasswordFormState extends State<EmailOrPasswordForm> {
           if (_isLoading)
             Padding(
               padding: const EdgeInsets.only(top: 12),
-              child: Text('Authenticating user...'),
+              child: Row(
+                children: [
+                  Text(
+                    'Authenticating user...  ',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(),
+                  ),
+                ],
+              ),
             ),
           if (_authError != null)
             Padding(
