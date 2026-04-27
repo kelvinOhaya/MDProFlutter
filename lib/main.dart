@@ -200,7 +200,12 @@ class _RouteChrome extends StatelessWidget {
     return Stack(
       children: [
         Positioned.fill(child: ColoredBox(color: backgroundColor)),
-        SafeArea(top: true, bottom: true, child: child),
+        SafeArea(
+          top: true,
+          bottom: true,
+          maintainBottomViewPadding: true,
+          child: child,
+        ),
       ],
     );
   }

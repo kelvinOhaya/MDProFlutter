@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:md_pro/pages/auth/auth_shell.dart';
 import 'package:md_pro/pages/auth/login.dart';
 import 'package:md_pro/pages/dashboard/dashboard.dart';
+import 'package:md_pro/pages/home/home_page.dart';
 import 'package:md_pro/viewModel/notes_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,7 @@ class _WrapperState extends State<Wrapper> {
           );
         }
 
-        return AuthShell(child: Login());
+        return HomePage();
       },
     );
   }
