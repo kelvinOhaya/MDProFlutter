@@ -39,49 +39,52 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          "Developed by Kelvin Ohaya",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: AppColors.iconContrast, fontSize: 20),
-        ),
-        Row(
-          children: [
-            IconButton(
-              onPressed: () async {
-                final didLaunch = await _launchUrl(_linkedInPath);
-                if (!didLaunch && context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Could not open LinkedIn.')),
-                  );
-                }
-              },
-              icon: FaIcon(
-                FontAwesomeIcons.linkedin,
-                color: AppColors.iconContrast,
-                size: 24,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Developed by Kelvin Ohaya",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: AppColors.iconContrast, fontSize: 20),
+          ),
+          Row(
+            children: [
+              IconButton(
+                onPressed: () async {
+                  final didLaunch = await _launchUrl(_linkedInPath);
+                  if (!didLaunch && context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Could not open LinkedIn.')),
+                    );
+                  }
+                },
+                icon: FaIcon(
+                  FontAwesomeIcons.linkedin,
+                  color: AppColors.iconContrast,
+                  size: 24,
+                ),
               ),
-            ),
-            IconButton(
-              onPressed: () async {
-                final didLaunch = await _launchUrl(_githubPath);
-                if (!didLaunch && context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Could not open GitHub.')),
-                  );
-                }
-              },
-              icon: FaIcon(
-                FontAwesomeIcons.code,
-                color: AppColors.iconContrast,
-                size: 24,
+              IconButton(
+                onPressed: () async {
+                  final didLaunch = await _launchUrl(_githubPath);
+                  if (!didLaunch && context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Could not open GitHub.')),
+                    );
+                  }
+                },
+                icon: FaIcon(
+                  FontAwesomeIcons.code,
+                  color: AppColors.iconContrast,
+                  size: 24,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

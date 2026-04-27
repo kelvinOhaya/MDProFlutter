@@ -18,6 +18,7 @@ class Dashboard extends StatelessWidget {
       key: scaffoldStateKey,
       drawer: NotesDrawer(drawerKey: scaffoldStateKey),
       bottomNavigationBar: BottomAppBar(
+        padding: EdgeInsets.only(bottom: 16),
         color: Colors.black,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
