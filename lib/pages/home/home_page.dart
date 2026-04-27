@@ -98,7 +98,7 @@ class GetStartedButton extends StatelessWidget {
         hoverColor: const Color.fromARGB(255, 214, 0, 229),
         elevation: 10,
         onPressed: () {
-          context.push('/auth/login');
+          context.go('/auth/login');
         },
         label: const Text(
           "Get started",

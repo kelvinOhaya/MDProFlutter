@@ -11,10 +11,16 @@ class Footer extends StatelessWidget {
   final Uri _githubPath = Uri.parse(
     "https://github.com/kelvinOhaya/MDProFlutter",
   );
-  Future<void> _launchUrl(Uri url) async {
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
+  Future<bool> _launchUrl(Uri url) async {
+    if (!await canLaunchUrl(url)) {
+      return false;
     }
+
+    return launchUrl(
+      url,
+      mode: LaunchMode.platformDefault,
+      webOnlyWindowName: '_blank',
+    );
   }
 
   @override
@@ -30,8 +36,13 @@ class Footer extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              onPressed: () {
-                _launchUrl(_linkedInPath);
+              onPressed: () async {
+                final didLaunch = await _launchUrl(_linkedInPath);
+                if (!didLaunch && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Could not open LinkedIn.')),
+                  );
+                }
               },
               icon: FaIcon(
                 FontAwesomeIcons.linkedin,
@@ -40,8 +51,13 @@ class Footer extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {
-                _launchUrl(_githubPath);
+              onPressed: () async {
+                final didLaunch = await _launchUrl(_githubPath);
+                if (!didLaunch && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Could not open GitHub.')),
+                  );
+                }
               },
               icon: FaIcon(
                 FontAwesomeIcons.code,
