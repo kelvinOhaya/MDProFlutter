@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Welcome to MD Pro",
+    "content": "# Welcome to MD Pro\n\nYour markdown note-taking app is ready to use!\n\n## Getting Started\n\n- **Create notes** with the '+' button\n- **Edit** by clicking on any note in the sidebar\n- **Delete** notes with the delete icon\n- **Format** your text using markdown syntax\n\n## Features\n\nFull markdown support\nReal-time preview\nAuto-save to cloud\nPersistent storage\n\nStart creating your first note now!"
+  },
+  {
+    "title": "Markdown Syntax Guide",
+    "content": "# Markdown Basics\n\n## Text Formatting\n\n**Bold text** with `**text**`\n*Italic text* with `*text*`\n~~Strikethrough~~ with `~~text~~`\n\n## Headings\n\n# H1 Heading\n## H2 Heading\n### H3 Heading\n\n## Lists\n\n### Unordered\n- Item 1\n- Item 2\n  - Nested item\n\n### Ordered\n1. First\n2. Second\n3. Third\n\n## Code\n\nInline `code` with backticks\n\n```\nCode block\nMultiple lines\n```\n\n## Blockquotes\n\n> This is a quote\n>\n> — Someone wise"
+  },
+  {
+    "title": "Project Ideas",
+    "content": "# Q2 Project Ideas\n\n## In Progress\n\n- **Mobile App Redesign** - Complete UI refresh\n  - [ ] Design mockups\n  - [ ] Developer handoff\n  - [ ] Implementation\n\n## Backlog\n\n- Dashboard analytics improvements\n- Performance optimization\n- User feedback integration\n\n## On Hold\n\n- Major refactor (waiting on architecture review)"
+  },
+  {
+    "title": "Meeting Notes - April 24",
+    "content": "# Team Standup\n\n**Date:** April 24, 2026\n**Attendees:** Team A, Team B leads\n\n## Discussions\n\n1. Sprint progress at 75%\n2. Blockers identified with API integration\n   - Resolution: Meeting with backend team scheduled\n3. QA found critical bug in payment flow\n\n## Action Items\n\n- [ ] Fix payment bug (Dev team)\n- [ ] Update documentation (Tech writer)\n- [ ] Schedule architecture review (Manager)\n\n**Next meeting:** April 25, 2:00 PM"
+  }
+]

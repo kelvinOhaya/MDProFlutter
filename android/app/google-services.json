@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "998439824642",
+    "project_id": "md-pro-45064",
+    "storage_bucket": "md-pro-45064.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998439824642:android:9ff4770112b834254be61b",
+        "android_client_info": {
+          "package_name": "com.example.md_pro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998439824642-j4orh1uhv8i3roc3ov1mnceabmetf4te.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQPJSr-L2gFhibhBfYQ_-LVdFpVbEaBxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998439824642-j4orh1uhv8i3roc3ov1mnceabmetf4te.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

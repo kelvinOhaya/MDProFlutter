@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:md_pro/main.dart';
 import 'package:md_pro/pages/home/animated_title.dart';
@@ -6,7 +7,8 @@ import 'custom_drawer.dart';
 import 'footer.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final user = FirebaseAuth.instance.currentUser;
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +44,9 @@ class HomePage extends StatelessWidget {
         ),
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: LayoutBuilder(
-              builder: (context, constraints) {
+              builder: (caontext, constraints) {
                 return ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: Column(

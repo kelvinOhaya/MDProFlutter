@@ -19,9 +19,7 @@ class AuthShell extends StatelessWidget {
           children: [
             SizedBox(width: 32),
             IconButton(
-              onPressed: () {
-                context.go('/');
-              },
+              onPressed: () => GoRouter.of(context).go('/home'),
               icon: FaIcon(FontAwesomeIcons.lessThan),
             ),
           ],

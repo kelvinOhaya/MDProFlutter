@@ -81,7 +81,10 @@ class _AnimatedTitleState extends State<AnimatedTitle>
             child: Text(
               "Notes have never been easier",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                fontSize: MediaQuery.sizeOf(context).width > 450 ? 56 : 40,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),
@@ -90,11 +93,14 @@ class _AnimatedTitleState extends State<AnimatedTitle>
           child: FadeTransition(
             opacity: delayedOpacityAnimation,
             child: Padding(
-              padding: EdgeInsetsGeometry.directional(top: 12),
+              padding: EdgeInsets.only(top: 12),
               child: Text(
                 "A faster way to get things done",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style: TextStyle(
+                  fontSize: MediaQuery.sizeOf(context).width > 450 ? 24 : 16,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
           ),

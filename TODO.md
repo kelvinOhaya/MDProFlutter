@@ -1,3 +1,8 @@
 **Things To Do**
 
-1. Try to get Header, desc, and btn centered
+- Get Notes hooked to firebase
+- Refactor code so notes rely on firebase's id rather than generating one
+
+**When done**
+
+- use example gif as a background for the home page

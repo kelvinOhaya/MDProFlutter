@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:md_pro/main.dart';
 
-class OrDivider extends StatelessWidget {
-  final bool isLargeScreen;
-  const OrDivider({super.key, required this.isLargeScreen});
+class DividerWithText extends StatelessWidget {
+  final String message;
+  const DividerWithText({super.key, required this.message});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,9 +12,9 @@ class OrDivider extends StatelessWidget {
         children: [
           Expanded(child: Divider()),
           Padding(
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              isLargeScreen ? "or" : "or continue with",
+              message,
               style: TextStyle(fontSize: 16, color: AppColors.iconContrast),
             ),
           ),

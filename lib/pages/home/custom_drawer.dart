@@ -27,7 +27,7 @@ class CustomDrawer extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 32),
+          padding: EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -52,7 +52,9 @@ class CustomDrawer extends StatelessWidget {
                 spacing: 24,
                 children: [
                   TextButton(
-                    onPressed: () => {},
+                    onPressed: () {
+                      context.go('/auth/signup');
+                    },
                     style: ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll<Color>(
                         AppColors.primary,
@@ -72,7 +74,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      context.push('/auth/signup');
+                      context.go('/auth/login');
                     },
                     style: ButtonStyle(
                       side: WidgetStatePropertyAll<BorderSide>(
